@@ -35,7 +35,7 @@ var ctx = {
         ctx.initData();
         ctx.initState();
         ctx.initPlayList();
-        
+
         if(mySong != "" && ctx.currentIndex != mySong){
             ctx.currentIndex = $("#listContent li[data-find='" + mySong + "']").index();
             ctx.currentSong = ctx.playList[ctx.currentIndex];
@@ -43,7 +43,7 @@ var ctx = {
             ctx.validatePlayList();
             mySong = "";
         }
-        
+
         setTimeout(function (){
             ctx.updateSong();
             ctx.setInterval();
@@ -53,7 +53,7 @@ var ctx = {
             ctx.loop();
         }, 500);
     };
-    
+
     ctx.initData = function () {
         ctx.currentIndex = + localStorage.getItem("currentSongIndex") || 0;
         ctx.currentIndex >= ctx.playList.length ? ctx.currentIndex = 0 : '';
@@ -72,7 +72,7 @@ var ctx = {
         ctx.$listContent = $('#listContent');
         ctx.diskCovers = $('.disk-cover');
     };
-    
+
     ctx.loop = function () {
         if(ctx.singleLoop == 0){
             //顺序
@@ -90,7 +90,7 @@ var ctx = {
             $('#controls .loop-btn').removeClass('rand');
         }
     };
-    
+
     ctx.initPlayList = function () {
         var $li;
         ctx.$listContent.html('');
@@ -108,7 +108,7 @@ var ctx = {
         ctx.validatePlayList();
         ctx.$playList.css('bottom', '-100%');
     };
-    
+
     ctx.showPlayList = function () {
         if($('#play').hasClass('lists')){
             $('#play').removeClass('lists');
@@ -116,11 +116,11 @@ var ctx = {
             $('#play').addClass('lists');
         }
     };
-    
+
     ctx.hidePlayList = function () {
         $('#play').removeClass('lists');
     };
-    
+
     ctx.validatePlayList = function () {
         this.h = (ctx.currentIndex + 1) * ctx.heightActive - ctx.$listContent.height() / 2;
         ctx.$listContent.children('li.active').removeClass('active').children("div.song-play").remove();
@@ -130,7 +130,7 @@ var ctx = {
             scrollTop: this.h
         });
     };
-    
+
     ctx.initState = function () {
         $('img').attr('draggable', false);
         ctx.player.addEventListener('ended', function () {
@@ -144,21 +144,21 @@ var ctx = {
         });
         ctx.player.addEventListener('canplay', ctx.readyToPlay);
         window.addEventListener('resize', ctx.updateCoverState);
-        
+
         $("html,body").on('click touch touchstart', function (e) {
             if ($(e.target).parents('#playList').length === 0 && !$(e.target).hasClass('list-btn')) {
                 ctx.hidePlayList();
             }
         });
-        
+
     };
-    
+
     ctx.updateCoverState = function (derection, preLoad) {
         var speed = 800, defualtUrl = myPlay + "song.png",
             updateAlbumImgs = function () {
                 ctx.diskCovers.attr('src', ctx.currentSong.album.picUrl);
             };
-    
+
         if (derection === 1) {
             ctx.songUpdated = false;
             if (preLoad) {
@@ -170,9 +170,9 @@ var ctx = {
             ctx.songUpdated = true;
             updateAlbumImgs();
         }
-    
+
     };
-    
+
     ctx.updateSong = function () {
         ctx.updateLyric(ctx.currentSong.id);
         ctx.player.src = ctx.currentSong.mp3Url;
@@ -183,7 +183,7 @@ var ctx = {
         }
         localStorage.setItem("currentSongIndex", ctx.currentIndex);
     };
-    
+
     ctx.updateLyric = function (songID){
         $.ajax({
             url: myPlay + 'get_music.php?lrc=' + songID,
@@ -193,7 +193,7 @@ var ctx = {
             }
         });
     }
-    
+
     ctx.setLyric = function (lrc_text) {
         let lrc_map = {};
         let rows = lrc_text.split('\n');
@@ -201,22 +201,22 @@ var ctx = {
 
         rows.forEach(row => {
             let time_arr = row.match(time_reg);
-            if (!time_arr) return;
-            let text = row.replace(time_reg, '').trim();
-            time_arr.forEach(time => {
-                let [min, sec] = [
-                    +time.match(/\[\d*/g)[0].slice(1),
-                    +time.match(/:\d*/g)[0].slice(1),
-                ];
-                lrc_map[min * 60 + sec] = text;
-            });
-        });
+        if (!time_arr) return;
+        let text = row.replace(time_reg, '').trim();
+        time_arr.forEach(time => {
+            let [min, sec] = [
+                +time.match(/\[\d*/g)[0].slice(1),
+                +time.match(/:\d*/g)[0].slice(1),
+            ];
+        lrc_map[min * 60 + sec] = text;
+    });
+    });
         ctx.lrcMap = lrc_map;
         return lrc_map;
     };
-    
-    
-    
+
+
+
     ctx.curLyric = function (sec) {
         let time_arr = Object.keys(ctx.lrcMap);
         time_arr.sort((pre, next) => +pre < +next ? 1 : -1);
@@ -231,7 +231,7 @@ var ctx = {
         }
         return ret;
     }
-    
+
     ctx.putLyric = function (sec) {
         let lrc = {};
         lrc = ctx.curLyric(sec);
@@ -240,16 +240,16 @@ var ctx = {
             $('.lyric').html(lrc.lrc);
         }
     }
-    
+
     ctx.updatePic = function () {
         $(".bg").css('background-image', 'url(' + ctx.currentSong.album.picUrl + ')');
     };
-    
+
     ctx.updateMusicInfo = function () {
         $('#songName').html(ctx.currentSong.name);
         $('#artist').html(formatArtists(ctx.currentSong.artists));
     };
-    
+
     ctx.play = function () {
         $(ctx.player).on("error", function (e) {
             //如果加载出错就切换下一首（有版权无法播放）
@@ -269,7 +269,7 @@ var ctx = {
             ctx.playFlag = true;
         }
     };
-    
+
     ctx.pause = function () {
         ctx.player.pause();
         ctx.isPlaying = false;
@@ -277,7 +277,7 @@ var ctx = {
         ctx.$playBtn.show();
         ctx.$pauseBtn.hide();
     };
-    
+
     ctx.moveNeedle = function (play) {
         if (play) {
             ctx.$needle.removeClass("pause-needle").addClass("resume-needle");
@@ -285,26 +285,26 @@ var ctx = {
             ctx.$needle.removeClass("resume-needle").addClass("pause-needle");
         }
     };
-    
+
     ctx.preSwitchSong = function () {
         ctx.songUpdated = false;
         ctx.currentSong = ctx.playList[ctx.currentIndex];
-    
+
         ctx.updateSong();
         ctx.updateCoverState(0);
-        
+
         ctx.player.pause();
         ctx.moveNeedle(false);
         ctx.validatePlayList();
     };
-    
+
     ctx.moveTo = function (index) {
         if (ctx.songUpdated) {
             ctx.currentIndex = index;
             ctx.preSwitchSong();
         }
     };
-    
+
     ctx.next = function () {
         if (ctx.songUpdated) {
             if(ctx.singleLoop >= 0){
@@ -315,7 +315,7 @@ var ctx = {
             ctx.preSwitchSong();
         }
     };
-    
+
     ctx.prev = function () {
         if (ctx.songUpdated) {
             if(ctx.singleLoop >= 0){
@@ -326,7 +326,7 @@ var ctx = {
             ctx.preSwitchSong();
         }
     };
-    
+
     ctx.updateProcess = function () {
         var buffer = ctx.player.buffered,
             bufferTime = buffer.length > 0 ? buffer.end(buffer.length - 1) : 0,
@@ -340,41 +340,41 @@ var ctx = {
             ctx.putLyric(currentTime);
         }
     };
-    
+
     ctx.setInterval = function () {
         if (!ctx.interval) {
             ctx.updateProcess();
             ctx.interval = setInterval(ctx.updateProcess, 1000);
         }
     };
-    
+
     ctx.clearInterval = function () {
         if (ctx.interval) {
             clearInterval(ctx.interval);
         }
-    
+
     };
-    
+
     ctx.initProcessBtn = function ($btn) {
         var moveFun = function (e) {
-            var duration = ctx.player.duration,
-                e = e.originalEvent,
-                totalWidth = ctx.$processBar.width(), percent, moveX, newWidth;
-            e.preventDefault();
-            if (ctx.processBtnState) {
-                moveX = (e.clientX || e.touches[0].clientX) - ctx.originX;
-                newWidth = ctx.$curBar.width() + moveX;
-    
-                if (newWidth > totalWidth || newWidth < 0) {
-                    ctx.processBtnState = 0;
-                } else {
-                    percent = newWidth / totalWidth;
-                    ctx.$curBar.width(newWidth);
-                    ctx.$curTime.text(validateTime(percent * duration / 60) + ":" + validateTime(percent * duration % 60));
+                var duration = ctx.player.duration,
+                    e = e.originalEvent,
+                    totalWidth = ctx.$processBar.width(), percent, moveX, newWidth;
+                e.preventDefault();
+                if (ctx.processBtnState) {
+                    moveX = (e.clientX || e.touches[0].clientX) - ctx.originX;
+                    newWidth = ctx.$curBar.width() + moveX;
+
+                    if (newWidth > totalWidth || newWidth < 0) {
+                        ctx.processBtnState = 0;
+                    } else {
+                        percent = newWidth / totalWidth;
+                        ctx.$curBar.width(newWidth);
+                        ctx.$curTime.text(validateTime(percent * duration / 60) + ":" + validateTime(percent * duration % 60));
+                    }
+                    ctx.originX = (e.clientX || e.touches[0].clientX);
                 }
-                ctx.originX = (e.clientX || e.touches[0].clientX);
-            }
-        },
+            },
             startFun = function (e) {
                 e = e.originalEvent;
                 ctx.processBtnState = 1;
@@ -391,13 +391,13 @@ var ctx = {
         $("html,body").on('mouseup touchend', endFun);
         $("#process").on('mousemove touchmove', moveFun);
     }
-    
-    
+
+
     function validateTime(number) {
         var value = (number > 10 ? number + '' : '0' + number).substring(0, 2);
         return isNaN(value) ? '00' : value;
     }
-    
+
     function formatArtists(artists) {
         var names = [];
         $.each(artists, function (i, item) {
@@ -405,7 +405,7 @@ var ctx = {
         });
         return names.join('/');
     }
-    
+
     ctx.initPlay = function (param) {
         var url = myPlay + 'get_music.php?id=' + param,
             nowDay = new Date().getDate();
@@ -413,13 +413,13 @@ var ctx = {
         if(myList == ""){
             url = myPlay + 'get_music.php?song=' + mySong;
         }
-        
+
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'json',
             beforeSend: function() {
-                
+
             },
             success: function (data) {
                 if(myList != ""){
@@ -437,40 +437,14 @@ var ctx = {
                 alert('无法加载...');
             }
         });
-        // if(nowDay != localStorage.nowDay){
-        //     localStorage.nowDay = nowDay;
-        //     $.ajax({
-        //         url: url,
-        //         type: 'GET',
-        //         dataType: 'json',
-        //         beforeSend: function() {
-                    
-        //         },
-        //         success: function (data) {
-        //             localStorage.tracks = JSON.stringify(data.result.tracks);
-        //             ctx.playList = data.result.tracks;
-        //             ctx.init();
-        //         },
-        //         complete: function() {
-                    
-        //         },
-        //         error: function (msg) {
-        //             console.log(msg);
-        //             alert('无法加载...');
-        //         }
-        //     });
-        // } else {
-        //     ctx.playList = JSON.parse(localStorage.tracks);
-        //     ctx.init();
-        // }
     };
-    
+
     $("#tools div").on('click touch touchstart',function (){
         if ($(this).hasClass('share')) {
             let url = window.location.href.split('?'),
-                share = url[0] + "/?list=" + myList + "&song=" + ctx.currentSong.id;
+                share = url[0] + "?list=" + myList + "&song=" + ctx.currentSong.id;
             if(myList == ""){
-                share = url[0] + "/?song=" + ctx.currentSong.id;
+                share = url[0] + "?song=" + ctx.currentSong.id;
             }
             if($('.share-window').length == 0){
                 $('.play-board .cover').append('<input type="text" class="share-window" value="' + share + '" />');
@@ -481,10 +455,10 @@ var ctx = {
                 }, 650);
             }
         } else if ($(this).hasClass('down')) {
-            window.open(myPlay + 'get_music.php?down=' + ctx.currentSong.mp3Url);
+            window.open(ctx.currentSong.mp3Url.replace(/https:\/\/p/, "http://m"));
         }
     });
-    
+
     $("html,body").on('click touch touchstart', function (e) {
         if ($(e.target).parents('.share-window').length === 0 && !$(e.target).hasClass('share') && !$(e.target).hasClass('share-window')) {
             $('.share-window').addClass('hide');

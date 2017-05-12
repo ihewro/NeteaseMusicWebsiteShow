@@ -1,16 +1,21 @@
+<?php
+/*
+Template Name: 网易云歌单播放器
+*/
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <?php //wp_head(); ?>
-    <script type='text/javascript' src='https://biji.io/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="./source/player.css"/>
 </head>
-<body>
+<body class="load">
 <div class="wrapper">
-    <div id="bg" class="bg"></div>
+    <div id="bg" class="bg" style="background-image: url('./source/song.png');"></div>
     <div id="play">
         <div class="play-board">
             <div class="header cover title">
@@ -20,6 +25,7 @@
                     <div class="share"></div>
                     <div class="down"></div>
                 </div>
+
                 <div class="title">
                     <div class="song" id="songName"></div>
                     <div class="artist lyric" id="artist"></div>
@@ -50,19 +56,32 @@
             </div>
         </div>
         <div class="play-list" id="playList">
-            <div class="list-title">播放列表（<span id="playListCount">0</span>）</div>
+            <div class="list-title">PlayList [<span id="playListCount">0</span>]</div>
             <ul class="list-content" id="listContent">
             </ul>
         </div>
     </div>
 </div>
-<?php $playList = "93931893";
-    ?>
-    <script>
-        var myPlay = "./source/";
-        var myList = "<?php echo $playList;?>";
-        var mySong = "";
-    </script>
-<script src="./source/player.js"></script>
+<?php
+$playSong = empty($_GET['song']) ? "" : $_GET['song'];
+if (empty($_GET['list']) && empty($_GET['song'])){
+    $playList[0]= "93931893";
+} else {
+    $playList[0] = $_GET['list'];
+};?>
+<script>
+    var myPlay = "./source/";
+    var myList = "<?php echo $playList[0];?>";
+    var mySong = "<?php echo rawurlencode($playSong);?>";
+</script>
+<script src="./source/player.js?2"></script>
+
+<div class="loading">
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+</div>
 </body>
 </html>
