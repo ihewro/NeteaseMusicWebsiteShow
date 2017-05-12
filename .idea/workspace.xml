@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d02a370f-177d-4eb5-968b-5e8c14db395a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/music.php" afterPath="$PROJECT_DIR$/music.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/get_music.php" afterPath="$PROJECT_DIR$/source/get_music.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/player.js" afterPath="$PROJECT_DIR$/source/player.js" />
-    </list>
+    <list default="true" id="d02a370f-177d-4eb5-968b-5e8c14db395a" name="Default" comment="" />
     <ignored path="NeteaseMusicWebsiteShow.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -172,16 +167,16 @@
       <updated>1494579990593</updated>
       <workItem from="1494579993514" duration="26000" />
       <workItem from="1494580092643" duration="2751000" />
-      <workItem from="1494587922780" duration="1727000" />
+      <workItem from="1494587922780" duration="1799000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4504000" />
+    <option name="totallyTimeSpent" value="4576000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-62" y="77" width="1221" height="688" extended-state="1" />
-    <editor active="true" />
+    <frame x="-62" y="77" width="1221" height="688" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25828376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
