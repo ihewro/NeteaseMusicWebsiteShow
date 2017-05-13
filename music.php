@@ -8,9 +8,8 @@ Template Name: 网易云歌单播放器
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <?php //wp_head(); ?>
+    <title>网易云歌单</title>
     <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-
     <link rel="stylesheet" href="./source/player.css"/>
 </head>
 <body class="load">
