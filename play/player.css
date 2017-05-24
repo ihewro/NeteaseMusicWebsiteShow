@@ -198,37 +198,37 @@ html, body {
 }
 
 .control .c-btn.pre {
-    background-image: url(play_btn_prev.png);
+    background-image: url(static/play_btn_prev.png);
 }
 
 .control .c-btn.play {
-    background-image: url(play_btn_play.png);
+    background-image: url(static/play_btn_play.png);
 }
 
 .control .c-btn.pause {
-    background-image: url(play_btn_pause.png);
+    background-image: url(static/play_btn_pause.png);
 }
 
 .control .c-btn.next {
-    background-image: url(play_btn_next.png);
+    background-image: url(static/play_btn_next.png);
 }
 
 .control .c-btn.list-btn {
     position: relative;
-    background-image: url(play_icn_src.png);
+    background-image: url(static/play_icn_src.png);
 }
 
 .control .c-btn.loop-btn {
     position: relative;
-    background-image: url(play_icn_loop.png);
+    background-image: url(static/play_icn_loop.png);
 }
 
 .control .c-btn.loop-btn.active {
-    background-image: url(play_icn_one.png);
+    background-image: url(static/play_icn_one.png);
 }
 
 .control .c-btn.loop-btn.rand {
-    background-image: url(play_icn_shuffle.png);
+    background-image: url(static/play_icn_shuffle.png);
 }
 
 .play-list {
@@ -300,7 +300,7 @@ ul.list-content > li > span {
 }
 
 li.active, li.active > span {
-    color: #CF3D3A !important;
+    color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .play-list {
@@ -438,8 +438,8 @@ body.load .loading {
 .play-board .cover:hover #tools div{
     left:5px;
 }
-#tools .share{background-image: url(actionbar_share.png);transition: .3s;}
-#tools .down{background-image: url(list_detail_icn_dld.png);transition: .5s;}
+#tools .share{background-image: url(static/actionbar_share.png);transition: .3s;}
+#tools .down{background-image: url(static/list_detail_icn_dld.png);transition: .5s;}
 .share-window{
     position:fixed;
     top:-16%;

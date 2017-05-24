@@ -1,24 +1,39 @@
 <?php
-/*
-Template Name: 网易云歌单播放器
-*/
+    $playSong = empty($_GET['song']) ? "" : $_GET['song'];
+
+    if(empty($_GET['list'])){
+        $playList = json_decode(file_get_contents('player.json'), true);
+    } else {
+        $playList[0] = $_GET['list'];
+    }
+
+    $site = '//' . $_SERVER['SERVER_NAME'];
+    $path = '/';
+    $uri = explode("/", $_SERVER["REQUEST_URI"], -1);
+    foreach ($uri as $v) {
+        if(!empty($v) && count(explode("?", $v)) == 1){
+            $path .= $v;
+            $path .= '/';
+        }
+    }
+    $url = $site . $path . '/play';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>网易云歌单</title>
-    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="./source/player.css"/>
+    <title>云音乐</title>
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo $url;?>/player.css?2"/>
 </head>
 <body class="load">
 <div class="wrapper">
-    <div id="bg" class="bg" style="background-image: url('./source/song.png');"></div>
+    <div id="bg" class="bg" style="background-image: url('<?php echo $url;?>/static/song.png');"></div>
     <div id="play">
         <div class="play-board">
             <div class="header cover title">
-                <img class="disk-cover" src="./source/song.png"/>
+                <img class="disk-cover" src="<?php echo $url;?>/static/song.png"/>
 
                 <div id="tools">
                     <div class="share"></div>
@@ -61,19 +76,12 @@ Template Name: 网易云歌单播放器
         </div>
     </div>
 </div>
-<?php
-$playSong = empty($_GET['song']) ? "" : $_GET['song'];
-if (empty($_GET['list']) && empty($_GET['song'])){
-    $playList[0]= "93931893";
-} else {
-    $playList[0] = $_GET['list'];
-};?>
 <script>
-    var myPlay = "./source/";
+    var myPlay = "<?php echo $url;?>";
     var myList = "<?php echo $playList[0];?>";
     var mySong = "<?php echo rawurlencode($playSong);?>";
 </script>
-<script src="./source/player.js?2"></script>
+<script src="<?php echo $url;?>/player.js?2"></script>
 
 <div class="loading">
     <i></i>
